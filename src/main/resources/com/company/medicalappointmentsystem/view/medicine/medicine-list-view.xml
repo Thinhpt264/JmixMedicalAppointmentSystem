@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://medicineListView.title"
+      focusComponent="medicinesDataGrid">
+    <data>
+        <collection id="medicinesDc"
+                    class="com.company.medicalappointmentsystem.entity.Medicine"> 
+            <fetchPlan   extends="_base"/>
+            <loader id="medicinesDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Medicine e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="medicinesDl">
+            <properties include=".*"/>
+        </genericFilter>
+        
+<hbox id="buttonsPanel" classNames="buttons-panel">
+
+<button id="createButton" action="medicinesDataGrid.create"/>
+
+<button id="editButton" action="medicinesDataGrid.edit"/>
+
+<button id="removeButton" action="medicinesDataGrid.remove"/>
+
+<simplePagination id="pagination" dataLoader="medicinesDl"/>
+</hbox>
+<dataGrid id="medicinesDataGrid"
+        width="100%"
+        minHeight="20em"
+        dataContainer="medicinesDc"
+ columnReorderingAllowed="true"
+ selectionMode="MULTI">
+    <actions>
+    <action id="create" type="list_create"/>
+    
+    
+    <action id="edit" type="list_edit"/>
+    
+    
+    <action id="remove" type="list_remove"/>
+    
+    
+    </actions>
+    <columns resizable="true">
+        <column property="name"/>
+    
+        <column property="price"/>
+    
+        <column property="description"/>
+    
+        <column property="photo"/>
+    
+    </columns>
+</dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectButton" action="selectAction"/>
+            <button id="discardButton" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>
