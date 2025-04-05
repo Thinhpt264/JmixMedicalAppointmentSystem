@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="MedicalAppointmentSystem">
+        <dropForeignKeyConstraint baseTableName="MEDICINE_IMAGE" constraintName="FK_MEDICINE_IMAGE_ON_MEDICINE"/>
+    </changeSet>
+    <changeSet id="2" author="MedicalAppointmentSystem">
+        <addColumn tableName="MEDICINE">
+            <column name="PHOTO" type="VARCHAR(1024)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="3" author="MedicalAppointmentSystem">
+        <dropTable cascadeConstraints="true" tableName="MEDICINE_IMAGE"/>
+    </changeSet>
+</databaseChangeLog>

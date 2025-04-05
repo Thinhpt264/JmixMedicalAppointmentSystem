@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://prescriptionItemDetailView.title"
+      focusComponent="medicineField">
+    <data>
+        <instance id="prescriptionItemDc"
+                  class="com.company.medicalappointmentsystem.entity.PrescriptionItem">
+            <fetchPlan extends="_base">
+                <property name="medicine" fetchPlan="_base"/>
+                <property name="quantity"/>
+                <property name="note"/>
+            </fetchPlan>
+            <loader/>
+        </instance>
+    </data>
+
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+
+    <layout alignItems="STRETCH"
+            padding="false" spacing="false"
+            expand="contentBox">
+        <vbox id="contentBox" classNames="overflow-auto">
+            <vbox classNames="contrast-panel">
+                <h4 text="msg://com.company.medicalappointmentsystem.entity/Medicine"/>
+                <formLayout dataContainer="prescriptionItemDc">
+                    <entityComboBox id="medicineField" property="medicine">
+                        <actions>
+                            <action id="entityLookup" type="entity_lookup"/>
+                            <action id="entityClear" type="entity_clear"/>
+                        </actions>
+                    </entityComboBox>
+                    <textField id="quantityField" property="quantity"/>
+                    <textArea id="noteField" property="note"/>
+                </formLayout>
+            </vbox>
+        </vbox>
+
+        <hbox id="detailActions"
+              classNames="px-m py-s bg-contrast-5">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="MedicalAppointmentSystem">
+        <createTable tableName="PRESCRIPTION">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PRESCRIPTION"/>
+            </column>
+            <column name="PRESCRIPTION_NUMBER" type="VARCHAR(255)"/>
+            <column name="PATIENT_NAME" type="VARCHAR(255)"/>
+            <column name="NOTES" type="CLOB"/>
+            <column name="TOTAL_PRICE" type="DOUBLE"/>
+            <column name="ACCOUNT_PATIENT_ID" type="UUID"/>
+            <column name="DOCTOR_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="MedicalAppointmentSystem">
+        <createTable tableName="PRESCRIPTION_ITEM">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PRESCRIPTION_ITEM"/>
+            </column>
+            <column name="MEDICINE_ID" type="UUID"/>
+            <column name="QUANTITY" type="INT"/>
+            <column name="NOTE" type="CLOB"/>
+            <column name="PRESCRIPTION_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="MedicalAppointmentSystem">
+        <createIndex indexName="IDX_PRESCRIPTION_ACCOUNT_PATIENT" tableName="PRESCRIPTION">
+            <column name="ACCOUNT_PATIENT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="ACCOUNT_PATIENT_ID" baseTableName="PRESCRIPTION"
+                                 constraintName="FK_PRESCRIPTION_ON_ACCOUNT_PATIENT" onDelete="CASCADE"
+                                 referencedColumnNames="ID" referencedTableName="PATIENT"/>
+    </changeSet>
+    <changeSet id="4" author="MedicalAppointmentSystem">
+        <createIndex indexName="IDX_PRESCRIPTION_DOCTOR" tableName="PRESCRIPTION">
+            <column name="DOCTOR_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="DOCTOR_ID" baseTableName="PRESCRIPTION"
+                                 constraintName="FK_PRESCRIPTION_ON_DOCTOR" referencedColumnNames="ID"
+                                 referencedTableName="DOCTOR"/>
+    </changeSet>
+    <changeSet id="5" author="MedicalAppointmentSystem">
+        <createIndex indexName="IDX_PRESCRIPTION_ITEM_MEDICINE" tableName="PRESCRIPTION_ITEM">
+            <column name="MEDICINE_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="MEDICINE_ID" baseTableName="PRESCRIPTION_ITEM"
+                                 constraintName="FK_PRESCRIPTION_ITEM_ON_MEDICINE" referencedColumnNames="ID"
+                                 referencedTableName="MEDICINE"/>
+    </changeSet>
+    <changeSet id="6" author="MedicalAppointmentSystem">
+        <createIndex indexName="IDX_PRESCRIPTION_ITEM_PRESCRIPTION" tableName="PRESCRIPTION_ITEM">
+            <column name="PRESCRIPTION_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PRESCRIPTION_ID" baseTableName="PRESCRIPTION_ITEM"
+                                 constraintName="FK_PRESCRIPTION_ITEM_ON_PRESCRIPTION" referencedColumnNames="ID"
+                                 referencedTableName="PRESCRIPTION"/>
+    </changeSet>
+</databaseChangeLog>

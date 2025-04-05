@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
       xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
-      title="msg://medicineListView.title"
-      focusComponent="medicinesDataGrid">
+      title="msg://paymentListView.title"
+      focusComponent="paymentsDataGrid">
     <data>
-        <collection id="medicinesDc"
-                    class="com.company.medicalappointmentsystem.entity.Medicine">
-            <fetchPlan extends="_base" />
-
-            <loader id="medicinesDl" readOnly="true">
+        <collection id="paymentsDc"
+                    class="com.company.medicalappointmentsystem.entity.Payment">
+            <fetchPlan extends="_base">
+                <property name="prescription" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="paymentsDl" readOnly="true">
                 <query>
-                    <![CDATA[select e from Medicine e]]>
+                    <![CDATA[select e from Payment e]]>
                 </query>
             </loader>
         </collection>
@@ -28,37 +29,32 @@
     </actions>
     <layout>
         <genericFilter id="genericFilter"
-                       dataLoader="medicinesDl">
+                       dataLoader="paymentsDl">
             <properties include=".*"/>
         </genericFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button id="createButton" action="medicinesDataGrid.createAction"/>
-            <button id="editButton" action="medicinesDataGrid.editAction"/>
-            <button id="refreshButton" action="medicinesDataGrid.refreshAction"/>
-            <button id="removeButton" action="medicinesDataGrid.removeAction"/>
-            <simplePagination id="pagination" dataLoader="medicinesDl"/>
+            <button id="createButton" action="paymentsDataGrid.createAction"/>
+            <button id="editButton" action="paymentsDataGrid.editAction"/>
+            <button id="removeButton" action="paymentsDataGrid.removeAction"/>
+            <simplePagination id="pagination" dataLoader="paymentsDl"/>
         </hbox>
-        <dataGrid id="medicinesDataGrid"
+        <dataGrid id="paymentsDataGrid"
                   width="100%"
                   minHeight="20em"
-                  dataContainer="medicinesDc"
-                  columnReorderingAllowed="true"
-                  selectionMode="MULTI">
+                  dataContainer="paymentsDc"
+                  columnReorderingAllowed="true">
             <actions>
                 <action id="createAction" type="list_create"/>
                 <action id="editAction" type="list_edit"/>
-                <action id="refreshAction" type="list_refresh"/>
                 <action id="removeAction" type="list_remove"/>
             </actions>
             <columns resizable="true">
-                <column property="photo" />
-                <column property="name"/>
-                <column property="price"/>
-                <column property="dosage"/>
-                <column property="description"/>
-                <column property="originBrand"/>
-                <column property="countryOfProduction"/>
-                <column property="registrationNumber"/>
+                <column property="prescription"/>
+                <column property="transactionId"/>
+                <column property="amount"/>
+                <column property="status"/>
+                <column property="method"/>
+                <column property="paymentTime"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

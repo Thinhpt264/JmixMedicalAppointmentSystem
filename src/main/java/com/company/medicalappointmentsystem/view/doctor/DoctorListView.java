@@ -1,7 +1,8 @@
-package com.company.medicalappointmentsystem.view.medicine;
+package com.company.medicalappointmentsystem.view.doctor;
 
-import com.company.medicalappointmentsystem.entity.Medicine;
+import com.company.medicalappointmentsystem.entity.Doctor;
 import com.company.medicalappointmentsystem.view.main.MainView;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.Renderer;
@@ -15,28 +16,27 @@ import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-
-@Route(value = "medicines", layout = MainView.class)
-@ViewController(id = "Medicine.list")
-@ViewDescriptor(path = "medicine-list-view.xml")
-@LookupComponent("medicinesDataGrid")
+@Route(value = "doctors", layout = MainView.class)
+@ViewController(id = "Doctor.list")
+@ViewDescriptor(path = "doctor-list-view.xml")
+@LookupComponent("doctorsDataGrid")
 @DialogMode(width = "64em")
-public class MedicineListView extends StandardListView<Medicine> {
-
+public class DoctorListView extends StandardListView<Doctor> {
     @ViewComponent
-    private DataGrid<Medicine> medicineDataGrid;
+    private DataGrid<Doctor> doctorsDataGrid;
 
     @Autowired
     private UiComponents uiComponents;
 
+
+
     @Autowired
-    private FileStorage fileStorage;
+    private FileStorage  fileStorage;
 
-
-    @Supply(to = "medicinesDataGrid.photo", subject = "renderer")
-    private Renderer<Medicine> medicinesDataGridImageRenderer() {
-        return new ComponentRenderer<>(medicine -> {
-            FileRef fileRef = medicine.getPhoto();
+    @Supply(to = "doctorsDataGrid.image", subject = "renderer")
+    private Renderer<Doctor> doctorsDataGridPictureRenderer() {
+        return new ComponentRenderer<>(user -> {
+            FileRef fileRef = user.getImage();
             if (fileRef != null) {
                 Image image = uiComponents.create(Image.class);
                 image.setWidth("50px");
@@ -53,5 +53,9 @@ public class MedicineListView extends StandardListView<Medicine> {
             }
         });
     }
+
+
+
+
 
 }

@@ -4,11 +4,13 @@
       focusComponent="form">
     <data>
         <instance id="medicineDc"
-                    class="com.company.medicalappointmentsystem.entity.Medicine" > 
-            <fetchPlan   extends="_base"/>
-                    <loader id="medicineDl"/>
+                  class="com.company.medicalappointmentsystem.entity.Medicine">
+            <fetchPlan extends="_base">
+
+            </fetchPlan>
+            <loader id="medicineDl"/>
         </instance>
-        
+
     </data>
     <facets>
         <dataLoadCoordinator auto="true"/>
@@ -18,36 +20,65 @@
         <action id="closeAction" type="detail_close"/>
     </actions>
     <layout>
-        
+        <!-- Tiêu đề -->
+        <vbox classNames="title-section" alignItems="CENTER">
+            <label  text="Quản lý Thông Tin Thuốc" classNames="title"/>
+        </vbox>
 
-<formLayout id="form" dataContainer="medicineDc">
-	<responsiveSteps>
-		<responsiveStep minWidth="0" columns="1"/>
-		<responsiveStep minWidth="40em" columns="2"/>
-	</responsiveSteps>
-	
-	
-		<textField id="nameField" property="name"/>
-	
-	
-	
-		<textField id="priceField" property="price"/>
-	
-	
-	
-		<textField id="descriptionField" property="description"/>
-	
-	
-	
-		<fileStorageUploadField id="photoField" clearButtonVisible="true" fileNameVisible="true" property="photo"/>
-	
-	
-</formLayout>
+        <!-- Giữ nguyên formLayout nhưng bố cục đẹp hơn -->
+        <formLayout id="form" dataContainer="medicineDc">
+            <responsiveSteps>
+                <responsiveStep minWidth="0" columns="1"/>
+                <responsiveStep minWidth="40em" columns="2"/>
+            </responsiveSteps>
 
-        
-        <hbox id="detailActions">
-            <button id="saveAndCloseButton" action="saveAction"/>
-            <button id="closeButton" action="closeAction"/>
+            <!-- Nhóm 1: Ảnh thuốc -->
+            <details summaryText="Ảnh Thuốc" opened="true">
+                <vbox alignItems="CENTER" spacing="true" classNames="image-upload-section">
+                    <image id="image" property="photo" dataContainer="medicineDc"
+                           height="200px" width="200px"
+                           classNames="medicine-image"/>
+                    <fileStorageUploadField id="photoField" clearButtonVisible="true"
+                                            fileNameVisible="false" property="photo"
+                                            dataContainer="medicineDc"/>
+                </vbox>
+            </details>
+
+            <!-- Nhóm 2: Thông tin thuốc -->
+            <hbox spacing="true">
+                <!-- Cột 1 -->
+                <vbox spacing="true" alignItems="START">
+                    <label text="Tên Thuốc"/>
+                    <textField id="nameField" property="name"/>
+
+                    <label text="Giá (VNĐ)"/>
+                    <textField id="priceField" property="price"/>
+
+                    <label text="Liều Dùng"/>
+                    <textField id="dosageField" property="dosage"/>
+                </vbox>
+
+                <!-- Cột 2 -->
+                <vbox spacing="true" alignItems="START">
+                    <label text="Mô Tả"/>
+                    <textArea id="descriptionField" height="9.5em" property="description"/>
+
+                    <label text="Thương Hiệu"/>
+                    <textField id="originBrandField" property="originBrand"/>
+
+                    <label text="Nước Sản Xuất"/>
+                    <textField id="countryOfProductionField" property="countryOfProduction"/>
+
+                    <label text="Số Đăng Ký"/>
+                    <textField id="registrationNumberField" property="registrationNumber"/>
+                </vbox>
+            </hbox>
+        </formLayout>
+
+        <!-- Nút Lưu & Đóng -->
+        <hbox id="detailActions" spacing="true" alignItems="CENTER">
+            <button id="saveAndCloseButton" action="saveAction" text="Lưu &amp; Đóng"/>
+            <button id="closeButton" action="closeAction" text="Đóng"/>
         </hbox>
     </layout>
 </view>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://patientListView.title"
+      focusComponent="patientsDataGrid">
+    <data>
+        <collection id="patientsDc"
+                    class="com.company.medicalappointmentsystem.entity.Patient">
+            <fetchPlan extends="_base">
+                <property name="account" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="patientsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Patient e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="patientsDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createButton" action="patientsDataGrid.create"/>
+            <button id="editButton" action="patientsDataGrid.edit"/>
+            <button id="removeButton" action="patientsDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="patientsDl"/>
+        </hbox>
+        <dataGrid id="patientsDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="patientsDc"
+                  columnReorderingAllowed="true">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="name"/>
+                <column property="email"/>
+                <column property="gender"/>
+                <column property="phone"/>
+                <column property="dob"/>
+                <column property="account"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectButton" action="selectAction"/>
+            <button id="discardButton" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

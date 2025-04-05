@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="MedicalAppointmentSystem">
+        <createTable tableName="APPOINTMENT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_APPOINTMENT"/>
+            </column>
+            <column name="DATE_" type="DATETIME"/>
+            <column name="STATUS" type="INT"/>
+            <column name="PATIENT_ID" type="UUID"/>
+            <column name="DOCTOR_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="MedicalAppointmentSystem">
+        <createTable tableName="DOCTOR">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_DOCTOR"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="SPECIALTY" type="VARCHAR(255)"/>
+            <column name="EMAIL" type="VARCHAR(255)"/>
+            <column name="PHONE" type="VARCHAR(255)"/>
+            <column name="DOB" type="VARCHAR(255)"/>
+            <column name="IMAGE" type="VARCHAR(1024)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="MedicalAppointmentSystem">
+        <createTable tableName="PATIENT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PATIENT"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="EMAIL" type="VARCHAR(255)"/>
+            <column name="PHONE" type="VARCHAR(255)"/>
+            <column name="DOB" type="DATE"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="MedicalAppointmentSystem">
+        <createIndex indexName="IDX_APPOINTMENT_DOCTOR" tableName="APPOINTMENT">
+            <column name="DOCTOR_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="DOCTOR_ID" baseTableName="APPOINTMENT"
+                                 constraintName="FK_APPOINTMENT_ON_DOCTOR" referencedColumnNames="ID"
+                                 referencedTableName="DOCTOR"/>
+    </changeSet>
+    <changeSet id="5" author="MedicalAppointmentSystem">
+        <addForeignKeyConstraint baseColumnNames="PATIENT_ID" baseTableName="APPOINTMENT"
+                                 constraintName="FK_APPOINTMENT_ON_PATIENT" referencedColumnNames="ID"
+                                 referencedTableName="PATIENT"/>
+    </changeSet>
+</databaseChangeLog>

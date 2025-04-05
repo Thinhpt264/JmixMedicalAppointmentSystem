@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://prescriptionDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="prescriptionDc"
+                  class="com.company.medicalappointmentsystem.entity.Prescription">
+            <fetchPlan extends="_base">
+                <property name="items" fetchPlan="_base">
+                    <property name="medicine" fetchPlan="_base"/>
+                </property>
+                <property name="accountPatient" fetchPlan="_base"/>
+                <property name="doctor" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+            <collection id="prescriptionItemsDc" property="items"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout alignItems="STRETCH"
+            padding="false" spacing="false"
+            expand="contentBox">
+        <vbox id="contentBox" classNames="overflow-auto" expand="dataGridWrapper">
+            <div classNames="grid-panel">
+                <!-- Thông tin đơn thuốc -->
+                <!-- Thông tin đơn thuốc -->
+                <vbox classNames="contrast-panel">
+                    <h4 text="Thông tin đơn thuốc"/>
+                    <formLayout id="form" dataContainer="prescriptionDc">
+                        <label text="Số đơn thuốc"/>
+                        <textField id="prescriptionNumberField" property="prescriptionNumber"/>
+                        <label text="Ngày kê đơn"/>
+                        <datePicker id="prescriptionDateField" property="prescriptionDate"/>
+                        <label text="Bác sĩ phụ trách"/>
+                        <entityPicker id="doctorField" property="doctor">
+                            <actions>
+                                <action id="entityLookupAction" type="entity_lookup"/>
+                                <action id="entityClearAction" type="entity_clear"/>
+                            </actions>
+                        </entityPicker>
+                        <label text="Ghi chú"/>
+                        <textField id="notes" property="notes"/>
+
+                    </formLayout>
+                </vbox>
+                <!-- Thông tin bệnh nhân -->
+                <vbox classNames="contrast-panel">
+                    <h4 text="Thông tin bệnh nhân"/>
+                    <formLayout id="patientInfoForm" dataContainer="prescriptionDc">
+                        <label text="Tên bệnh nhân"/>
+                        <textField id="patientName" property="patientName"/>
+                        <label text="Bệnh nhân"/>
+                        <entityPicker id="accountPatientField" property="accountPatient">
+                            <actions>
+                                <action id="entityLookup" type="entity_lookup"/>
+                                <action id="entityClear" type="entity_clear"/>
+                            </actions>
+                        </entityPicker>
+                        <label text="Tình Trạng Thanh Toán"/>
+                        <select id="paymentStatus" property="paymentStatus" dataContainer="prescriptionDc"/>
+                        <label text="Tổng tiền"/>
+                        <textField id="totalPriceField" property="totalPrice" readOnly="true"/>
+                    </formLayout>
+                </vbox>
+            </div>
+            <!-- Bảng hiển thị danh sách thuốc kê đơn -->
+            <vbox id="dataGridWrapper" classNames="contrast-panel" minHeight="30em">
+                <h4 text="msg://com.company.medicalappointmentsystem.entity/Prescription.items"/>
+                <hbox id="buttonsPanel" classNames="buttons-panel">
+                    <button id="createPrescriptionItemBtn" action="prescriptionItemsDataGrid.create"/>
+                    <button id="editPrescriptionItemBtn" action="prescriptionItemsDataGrid.edit"/>
+                    <button id="removePrescriptionItemBtn" action="prescriptionItemsDataGrid.remove"/>
+                </hbox>
+                <dataGrid id="prescriptionItemsDataGrid" dataContainer="prescriptionItemsDc" width="100%">
+                    <actions>
+                        <action id="create" type="list_create">
+                            <properties>
+                                <property name="openMode" value="DIALOG"/>
+                            </properties>
+                        </action>
+                        <action id="edit" type="list_edit">
+                            <properties>
+                                <property name="openMode" value="DIALOG"/>
+                            </properties>
+                        </action>
+                        <action id="remove" type="list_remove"/>
+                    </actions>
+                    <columns>
+                        <column property="medicine"/>
+                        <column property="quantity"/>
+                        <column property="note"/>
+                    </columns>
+                </dataGrid>
+            </vbox>
+        </vbox>
+        <hbox id="detailActions"
+              classNames="px-m py-s bg-contrast-5">
+            <button id="saveAndCloseButton" action="saveAction"/>
+            <button id="closeButton" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

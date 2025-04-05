@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://jmix.io/schema/flowui/menu">
+
+    <!-- Menu Nhân sự (HR) -->
+    <menu id="hr" title="Quản lý Nhân sự" opened="true" icon="vaadin:user-card">
+        <item view="User.list"
+              title="msg://com.company.medicalappointmentsystem.view.user/UserListView.title"
+              icon="vaadin:user" />
+        <item view="Doctor.list"
+              title="msg://com.company.medicalappointmentsystem.view.doctor/doctorListView.title"
+              icon="vaadin:doctor" />
+        <item view="Patient.list"
+              title="msg://com.company.medicalappointmentsystem.view.patient/patientListView.title"
+              icon="vaadin:user-heart" />
+    </menu>
+
+    <!-- Menu Lịch hẹn và Công việc -->
+    <menu id="schedule" title="Lịch &amp; Công việc" icon="vaadin:calendar">
+        <item view="MyCalendar"
+              title="msg://com.company.medicalappointmentsystem.view.mycalendar/myCalendar.title"
+              icon="vaadin:calendar" />
+        <item view="Task_.list"
+              title="msg://com.company.medicalappointmentsystem.view.task/taskListView.title"
+              icon="vaadin:tasks" />
+        <item view="Appointment.list"
+              title="msg://com.company.medicalappointmentsystem.view.appointment/appointmentListView.title"
+              icon="vaadin:calendar-clock" />
+    </menu>
+
+    <!-- Menu Đơn thuốc -->
+    <menu id="prescription" title="Quản lý Đơn thuốc" icon="vaadin:clipboard-pulse">
+        <item view="Prescription.list"
+              title="msg://com.company.medicalappointmentsystem.view.prescription/prescriptionListView.title"
+              icon="vaadin:clipboard-text" />
+        <item view="Medicine.list"
+              title="msg://com.company.medicalappointmentsystem.view.medicine/medicineListView.title"
+              icon="vaadin:package" />
+    </menu>
+
+    <!-- Menu Thanh toán -->
+    <menu id="payment" title="Thanh toán" icon="vaadin:credit-card">
+        <item view="Payment.list"
+              title="msg://com.company.medicalappointmentsystem.view.payment/paymentListView.title" />
+    </menu>
+
+</menu-config>

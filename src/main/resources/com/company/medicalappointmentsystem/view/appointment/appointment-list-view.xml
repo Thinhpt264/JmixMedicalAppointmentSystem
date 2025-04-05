@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://appointmentListView.title"
+      focusComponent="appointmentsDataGrid">
+    <data>
+        <collection id="appointmentsDc"
+                    class="com.company.medicalappointmentsystem.entity.Appointment">
+            <fetchPlan extends="_base">
+                <property name="patient" fetchPlan="_base"/>
+                <property name="doctor" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="appointmentsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Appointment e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="appointmentsDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createButton" action="appointmentsDataGrid.create"/>
+            <button id="editButton" action="appointmentsDataGrid.edit"/>
+            <button id="updateStatusBtn"  icon="vaadin:check" text="Confirmed"  enabled="false"/>
+            <button id="removeButton" action="appointmentsDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="appointmentsDl"/>
+        </hbox>
+        <dataGrid id="appointmentsDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="appointmentsDc"
+                  columnReorderingAllowed="true">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="id"/>
+                <column property="patient"/>
+                <column property="doctor"/>
+                <column property="date"/>
+                <column property="status"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectButton" action="selectAction"/>
+            <button id="discardButton" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

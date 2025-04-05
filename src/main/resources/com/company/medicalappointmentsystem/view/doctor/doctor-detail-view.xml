@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://doctorDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="doctorDc"
+                  class="com.company.medicalappointmentsystem.entity.Doctor">
+            <loader id="doctorDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="doctorDc">
+            <responsiveSteps>
+                <responsiveStep minWidth="0" columns="1"/>
+                <responsiveStep minWidth="40em" columns="2"/>
+            </responsiveSteps>
+            <textField id="nameField" property="name"/>
+            <textField id="specialtyField" property="specialty"/>
+            <textField id="emailField" property="email"/>
+            <textField id="phoneField" property="phone"/>
+            <datePicker id="dobField" property="dob"/>
+            <details summaryText="Picture">
+                <hbox >
+                    <fileStorageUploadField id="imageField" clearButtonVisible="true" fileNameVisible="false"
+                                            property="image"
+                                            dataContainer="doctorDc"/>
+                    <image id="image" property="image" dataContainer="doctorDc" height="10em" width="10em"
+                           classNames="doctor-picture"/>
+                </hbox>
+            </details>
+            <select id="genderField" property="gender"/>
+            <entityPicker id="accountField" property="account">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseButton" action="saveAction"/>
+            <button id="closeButton" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

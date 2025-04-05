@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://doctorListView.title"
+      focusComponent="doctorsDataGrid">
+    <data>
+        <collection id="doctorsDc"
+                    class="com.company.medicalappointmentsystem.entity.Doctor">
+
+            <loader id="doctorsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Doctor e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="doctorsDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createButton" action="doctorsDataGrid.create"/>
+            <button id="editButton" action="doctorsDataGrid.edit"/>
+            <button id="removeButton" action="doctorsDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="doctorsDl"/>
+        </hbox>
+        <dataGrid id="doctorsDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="doctorsDc"
+                  columnReorderingAllowed="true">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column key="image"   sortable="false" flexGrow="0" width="120px"  resizable="false"/>
+                <column property="name"/>
+                <column property="specialty"/>
+                <column property="email"/>
+                <column property="phone"/>
+                <column property="dob"/>
+                <column property="account" />
+                <column property="gender"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectButton" action="selectAction"/>
+            <button id="discardButton" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>
