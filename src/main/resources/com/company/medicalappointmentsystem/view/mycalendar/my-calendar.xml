@@ -8,6 +8,7 @@
     <data>
         <collection id="tasksDc" class="com.company.medicalappointmentsystem.entity.Task">
             <fetchPlan extends="_base">
+                <property name="employee" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="tasksDl" readOnly="true">
                 <query>
@@ -95,6 +96,9 @@
                             <column property="name"/>
                             <column property="startDate"/>
                             <column property="endDate"/>
+                            <column property="type"/>
+                            <column property="employee"/>
+                            <column property="status"/>
                         </columns>
                     </dataGrid>
                 </vbox>

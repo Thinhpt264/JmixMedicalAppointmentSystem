@@ -51,6 +51,7 @@ dependencies {
     implementation 'io.jmix.multitenancy:jmix-multitenancy-starter'
     implementation 'io.jmix.multitenancy:jmix-multitenancy-flowui-starter'
     implementation 'io.jmix.fullcalendar:jmix-fullcalendar-flowui-starter'
+    implementation 'io.jmix.charts:jmix-charts-flowui-starter'
 }
 
 configurations.implementation {

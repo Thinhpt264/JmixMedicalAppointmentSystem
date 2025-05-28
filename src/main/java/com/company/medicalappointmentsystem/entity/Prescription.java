@@ -27,8 +27,6 @@ public class Prescription {
     private UUID id;
     @Column(name = "PAYMENT_STATUS")
     private Integer paymentStatus ;
-    @Column(name = "PRESCRIPTION_NUMBER")
-    private String prescriptionNumber;
     @OnDelete(DeletePolicy.CASCADE)
     @OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL, orphanRemoval = true)
     @Composition
@@ -114,13 +112,8 @@ public class Prescription {
         this.patientName = patientName;
     }
 
-    public String getPrescriptionNumber() {
-        return prescriptionNumber;
-    }
 
-    public void setPrescriptionNumber(String prescriptionNumber) {
-        this.prescriptionNumber = prescriptionNumber;
-    }
+
 
     public UUID getId() {
         return id;

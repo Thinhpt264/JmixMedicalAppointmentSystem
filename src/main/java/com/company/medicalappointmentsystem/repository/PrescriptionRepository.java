@@ -1,5 +1,6 @@
 package com.company.medicalappointmentsystem.repository;
 
+import com.company.medicalappointmentsystem.entity.Doctor;
 import com.company.medicalappointmentsystem.entity.Prescription;
 import com.company.medicalappointmentsystem.entity.User;
 import io.jmix.core.repository.JmixDataRepository;
@@ -12,5 +13,7 @@ import java.util.UUID;
 public interface PrescriptionRepository extends JmixDataRepository<Prescription, UUID> {
 
     List<Prescription> findPrescriptionByAccountPatient(User accountPatient);
+
+    List<Prescription> findPrescriptionByDoctor(Doctor doctor);
 
 }

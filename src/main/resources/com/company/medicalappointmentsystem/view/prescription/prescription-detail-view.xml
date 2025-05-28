@@ -33,10 +33,8 @@
                 <vbox classNames="contrast-panel">
                     <h4 text="Thông tin đơn thuốc"/>
                     <formLayout id="form" dataContainer="prescriptionDc">
-                        <label text="Số đơn thuốc"/>
-                        <textField id="prescriptionNumberField" property="prescriptionNumber"/>
                         <label text="Ngày kê đơn"/>
-                        <datePicker id="prescriptionDateField" property="prescriptionDate"/>
+                        <datePicker id="prescriptionDateField" property="prescriptionDate" readOnly="true"/>
                         <label text="Bác sĩ phụ trách"/>
                         <entityPicker id="doctorField" property="doctor">
                             <actions>

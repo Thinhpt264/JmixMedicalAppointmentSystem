@@ -173,4 +173,20 @@ public class User implements JmixUserDetails, HasTimeZone {
     public void setTimeZoneId(final String timeZoneId) {
         this.timeZoneId = timeZoneId;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", version=" + version +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", active=" + active +
+                ", timeZoneId='" + timeZoneId + '\'' +
+                ", authorities=" + authorities +
+                '}';
+    }
 }

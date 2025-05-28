@@ -20,3 +20,23 @@
     color: #007bff; /* Màu xanh dương */
 }
 
+.custom-login {
+    width: 100%;
+    background-image: url("resources/META-INF/resources/icons/background.png");
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    height: 25em;
+}
+
+.custom-login jmix-login-form {
+    align-items: center;
+    display: flex;
+    max-width: 25em;
+
+}
+
+.custom-login vaadin-login-form-wrapper {
+    background-image: none;
+}
+

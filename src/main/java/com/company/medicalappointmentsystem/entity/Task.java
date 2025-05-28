@@ -29,7 +29,7 @@ public class Task {
     @OnDeleteInverse(DeletePolicy.CASCADE)
     @JoinColumn(name = "EMPLOYEE_ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private User employee;
+    private Doctor employee;
 
     @NotNull
     @NotEmpty
@@ -48,6 +48,14 @@ public class Task {
     private String status;
     @Column(name = "TYPE_")
     private String type;
+
+    public void setEmployee(Doctor employee) {
+        this.employee = employee;
+    }
+
+    public Doctor getEmployee() {
+        return employee;
+    }
 
     public TaskType getType() {
         return type == null ? null : TaskType.fromId(type);
@@ -97,15 +105,7 @@ public class Task {
             this.name = name;
         }
 
-        public User getEmployee() {
-            return employee;
-        }
-
-        public void setEmployee(User employee) {
-            this.employee = employee;
-        }
-
-        public UUID getId() {
+    public UUID getId() {
             return id;
         }
 
@@ -140,7 +140,7 @@ public class Task {
     @JmixProperty
     public String getTitleName() {
         if (this.getType() == TaskType.ON_DUTY && this.getEmployee() != null) {
-            return "Lịch Trực - " + this.getEmployee().getFirstName();
+            return "Lịch Trực - " + this.getEmployee().getName();
         } else if (this.getType() == TaskType.SCHEDULED_CHECKUP && this.getAppointment() != null) {
             return "Lịch Hẹn: " + this.getAppointment().getPatient().getName();
         } else if (this.getType() == TaskType.ALL_DAY_EVENT) {

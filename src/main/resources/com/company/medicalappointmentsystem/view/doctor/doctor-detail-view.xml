@@ -22,7 +22,12 @@
                 <responsiveStep minWidth="40em" columns="2"/>
             </responsiveSteps>
             <textField id="nameField" property="name"/>
-            <textField id="specialtyField" property="specialty"/>
+            <entityPicker id="specialtyField" property="specialty">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
             <textField id="emailField" property="email"/>
             <textField id="phoneField" property="phone"/>
             <datePicker id="dobField" property="dob"/>

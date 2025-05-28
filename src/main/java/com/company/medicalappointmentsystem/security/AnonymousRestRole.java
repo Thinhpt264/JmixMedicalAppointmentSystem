@@ -10,7 +10,6 @@ import io.jmix.security.role.annotation.EntityAttributePolicy;
 import io.jmix.security.role.annotation.EntityPolicy;
 import io.jmix.security.role.annotation.ResourceRole;
 import io.jmix.security.role.annotation.SpecificPolicy;
-import io.jmix.securityflowui.role.annotation.MenuPolicy;
 import io.jmix.securityflowui.role.annotation.ViewPolicy;
 
 @ResourceRole(name = "AnonymousRestRole", code = AnonymousRestRole.CODE, scope = "API")
@@ -27,8 +26,7 @@ public interface AnonymousRestRole {
     @EntityPolicy(entityClass = Doctor.class, actions = EntityPolicyAction.ALL)
     void doctor();
 
-    @MenuPolicy(menuIds = {"User.list", "Patient.list", "Appointment.list", "Doctor.list"})
-    @ViewPolicy(viewIds = {"entityInfoView", "User.list", "User.detail", "Patient.list", "Appointment.list", "Doctor.list", "Doctor.detail", "Appointment.detail"})
+    @ViewPolicy(viewIds = "entityInfoView")
     void screens();
 
     @SpecificPolicy(resources = {"datatools.showEntityInfo", "rest.enabled"})

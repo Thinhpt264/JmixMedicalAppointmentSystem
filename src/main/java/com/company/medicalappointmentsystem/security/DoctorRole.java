@@ -15,18 +15,18 @@ public interface DoctorRole {
     String CODE = "doctor-role";
 
     @MenuPolicy(menuIds = {"Appointment.list", "Patient.list", "Medicine.list", "Prescription.list", "MyCalendar", "Task_.list", "Payment.list"})
-    @ViewPolicy(viewIds = {"Appointment.list", "Appointment.detail", "Patient.list", "LoginView", "MainView", "Medicine.list", "Prescription.list", "MyCalendar", "Task_.list", "Prescription.detail", "PrescriptionItem.detail", "Task_.detail", "Payment.list", "Payment.detail"})
+    @ViewPolicy(viewIds = {"Appointment.list", "Appointment.detail", "Patient.list", "LoginView", "MainView", "Medicine.list", "Prescription.list", "MyCalendar", "Task_.list", "Prescription.detail", "PrescriptionItem.detail", "Task_.detail", "Payment.list", "Payment.detail", "Medicine.detail", "Doctor.list", "User.list"})
     void screens();
 
     @EntityAttributePolicy(entityClass = Appointment.class, attributes = "*", action = EntityAttributePolicyAction.MODIFY)
     @EntityPolicy(entityClass = Appointment.class, actions = EntityPolicyAction.ALL)
     void appointment();
 
-    @EntityAttributePolicy(entityClass = Patient.class, attributes = "*", action = EntityAttributePolicyAction.MODIFY)
-    @EntityPolicy(entityClass = Patient.class, actions = EntityPolicyAction.ALL)
+    @EntityAttributePolicy(entityClass = Patient.class, attributes = "*", action = EntityAttributePolicyAction.VIEW)
+    @EntityPolicy(entityClass = Patient.class, actions = {EntityPolicyAction.READ, EntityPolicyAction.UPDATE, EntityPolicyAction.CREATE})
     void patient();
 
-    @SpecificPolicy(resources = {"ui.loginToUi", "datatools.showEntityInfo", "ui.showExceptionDetails"})
+    @SpecificPolicy(resources = {"ui.loginToUi", "datatools.showEntityInfo", "ui.showExceptionDetails", "ui.genericfilter.modifyConfiguration", "ui.genericfilter.modifyJpqlCondition", "ui.genericfilter.modifyGlobalConfiguration"})
     void specific();
 
     @EntityAttributePolicy(entityClass = Task.class, attributes = "*", action = EntityAttributePolicyAction.MODIFY)
@@ -48,4 +48,12 @@ public interface DoctorRole {
     @EntityAttributePolicy(entityClass = Payment.class, attributes = "*", action = EntityAttributePolicyAction.VIEW)
     @EntityPolicy(entityClass = Payment.class, actions = EntityPolicyAction.READ)
     void payment();
+
+    @EntityAttributePolicy(entityClass = Doctor.class, attributes = "*", action = EntityAttributePolicyAction.VIEW)
+    @EntityPolicy(entityClass = Doctor.class, actions = EntityPolicyAction.READ)
+    void doctor();
+
+    @EntityAttributePolicy(entityClass = User.class, attributes = "*", action = EntityAttributePolicyAction.VIEW)
+    @EntityPolicy(entityClass = User.class, actions = EntityPolicyAction.READ)
+    void user();
 }

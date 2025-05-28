@@ -47,9 +47,11 @@ public class PrescriptionListView extends StandardListView<Prescription> {
 
     @Subscribe
     public void onBeforeShow(final BeforeShowEvent event) {
-        User user = userService.getCurrentUser();
         boolean isAdmin = userService.hasRole("system-full-access");
-        if(!isAdmin) {
+        boolean isDoctor = userService.hasRole("doctor-role");
+        if(isDoctor) {
+            prescriptionsDc.setItems(prescriptionService.getPrescriptionsForDoctor());
+        }else if(!isAdmin ) {
             prescriptionsDc.setItems(prescriptionService.getPrescriptionsForUser());
         }
 
@@ -61,8 +63,6 @@ public class PrescriptionListView extends StandardListView<Prescription> {
         if(selected != null) {
             String postForm = buildAutoPostForm("/payment/pay", selected.getId().toString());
             UI.getCurrent().getPage().executeJs("document.body.insertAdjacentHTML('beforeend', $0); document.getElementById('vnpayForm').submit();", postForm);
-        }else{
-
         }
 
     }

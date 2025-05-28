@@ -39,7 +39,6 @@
         <hbox id="buttonsPanel" classNames="buttons-panel">
             <button id="createButton" action="prescriptionsDataGrid.createAction"/>
             <button id="editButton" action="prescriptionsDataGrid.editAction"/>
-            <button id="refreshButton" action="prescriptionsDataGrid.refreshAction"/>
             <button id="removeButton" action="prescriptionsDataGrid.removeAction"/>
             <button id="payButton" text="Thanh toán" visible="false"/>
             <simplePagination id="pagination" dataLoader="prescriptionsDl"/>
@@ -49,15 +48,13 @@
                   minHeight="20em"
                   dataContainer="prescriptionsDc"
                   columnReorderingAllowed="true"
-                  selectionMode="MULTI">
+                  selectionMode="SINGLE">
             <actions>
                 <action id="createAction" type="list_create"/>
                 <action id="editAction" type="list_edit"/>
-                <action id="refreshAction" type="list_refresh"/>
                 <action id="removeAction" type="list_remove"/>
             </actions>
             <columns resizable="true">
-                <column property="prescriptionNumber"/>
                 <column property="patientName"/>
                 <column property="notes"/>
                 <column property="totalPrice"/>

@@ -12,6 +12,8 @@
         <item view="Patient.list"
               title="msg://com.company.medicalappointmentsystem.view.patient/patientListView.title"
               icon="vaadin:user-heart" />
+        <item view="Specialty.list"
+              title="msg://com.company.medicalappointmentsystem.view.specialty/specialtyListView.title"/>
     </menu>
 
     <!-- Menu Lịch hẹn và Công việc -->
@@ -35,6 +37,7 @@
         <item view="Medicine.list"
               title="msg://com.company.medicalappointmentsystem.view.medicine/medicineListView.title"
               icon="vaadin:package" />
+
     </menu>
 
     <!-- Menu Thanh toán -->

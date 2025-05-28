@@ -12,7 +12,7 @@
             </fetchPlan>
             <loader id="appointmentsDl" readOnly="true">
                 <query>
-                    <![CDATA[select e from Appointment e]]>
+                    <![CDATA[select e from Appointment e where e.patient.account = :currentUser or :isAdmin = true ]]>
                 </query>
             </loader>
         </collection>
@@ -36,7 +36,8 @@
         <hbox id="buttonsPanel" classNames="buttons-panel">
             <button id="createButton" action="appointmentsDataGrid.create"/>
             <button id="editButton" action="appointmentsDataGrid.edit"/>
-            <button id="updateStatusBtn"  icon="vaadin:check" text="Confirmed"  enabled="false"/>
+            <button id="updateStatusBtn" icon="vaadin:check" text="Confirmed" enabled="false"/>
+            <button id="updateStatusBtnCancel" icon="vaadin:hand" classNames="badged-icon" text="Cancel" visible="false" enabled="false"/>
             <button id="removeButton" action="appointmentsDataGrid.remove"/>
             <simplePagination id="pagination" dataLoader="appointmentsDl"/>
         </hbox>
@@ -51,7 +52,7 @@
                 <action id="remove" type="list_remove"/>
             </actions>
             <columns resizable="true">
-                <column property="id"/>
+                <column property="reason"/>
                 <column property="patient"/>
                 <column property="doctor"/>
                 <column property="date"/>

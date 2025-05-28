@@ -1,7 +1,9 @@
 package com.company.medicalappointmentsystem.entity;
 
+import io.jmix.core.DeletePolicy;
 import io.jmix.core.FileRef;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
+import io.jmix.core.entity.annotation.OnDeleteInverse;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import jakarta.persistence.*;
@@ -24,8 +26,10 @@ public class Doctor {
     @InstanceName
     @Column(name = "NAME")
     private String name;
-    @Column(name = "SPECIALTY")
-    private String specialty;
+    @OnDeleteInverse(DeletePolicy.UNLINK)
+    @JoinColumn(name = "SPECIALTY_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Specialty specialty;
     @Column(name = "EMAIL")
     private String email;
     @Column(name = "PHONE")
@@ -37,6 +41,14 @@ public class Doctor {
     @JoinColumn(name = "ACCOUNT_ID")
     @OneToOne(fetch = FetchType.LAZY)
     private User account;
+
+    public void setSpecialty(Specialty specialty) {
+        this.specialty = specialty;
+    }
+
+    public Specialty getSpecialty() {
+        return specialty;
+    }
 
     public User getAccount() {
         return account;
@@ -84,14 +96,6 @@ public class Doctor {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getSpecialty() {
-        return specialty;
-    }
-
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty;
     }
 
     public String getName() {

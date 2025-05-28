@@ -25,20 +25,37 @@
                 <responsiveStep minWidth="0" columns="1"/>
                 <responsiveStep minWidth="40em" columns="2"/>
             </responsiveSteps>
-            <dateTimePicker id="dateField" property="date"/>
-            <select id="statusField" property="status"/>
-            <entityPicker id="patientField" property="patient">
+            <!-- Cột trái -->
+            <dateTimePicker id="dateField"
+                            property="date"
+                            label="Thời gian cuộc hẹn"/>
+            <entityPicker id="patientField"
+                          property="patient"
+                          label="Bệnh Nhân">
                 <actions>
                     <action id="entityLookup" type="entity_lookup"/>
                     <action id="entityClear" type="entity_clear"/>
                 </actions>
             </entityPicker>
-            <entityPicker id="doctorField" property="doctor">
+
+            <!-- Cột phải -->
+            <select id="statusField"
+                    property="status"
+                    label="Trạng thái" readOnly="true"/>
+            <entityPicker id="doctorField"
+                          property="doctor"
+                          label="Bác Sĩ">
                 <actions>
                     <action id="entityLookup" type="entity_lookup"/>
                     <action id="entityClear" type="entity_clear"/>
                 </actions>
             </entityPicker>
+
+            <!-- Trường lý do hiển thị toàn dòng -->
+            <textField id="reasonField"
+                       property="reason"
+                       label="Lí Do"
+                       colspan="2"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseButton" action="saveAction"/>

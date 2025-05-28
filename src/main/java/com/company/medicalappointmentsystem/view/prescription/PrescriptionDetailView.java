@@ -19,6 +19,7 @@ import io.jmix.flowui.model.InstanceContainer;
 import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -89,6 +90,8 @@ public class PrescriptionDetailView extends StandardDetailView<Prescription> {
     public void onBeforeShow(final BeforeShowEvent event) {
         // Load the list of Patients entities
         List<Patient> patients = dataManager.load(Patient.class).all().list();
+        Prescription prescription = getEditedEntity();
+            prescription.setPrescriptionDate(LocalDate.now());
 
 
 
@@ -98,7 +101,7 @@ public class PrescriptionDetailView extends StandardDetailView<Prescription> {
     public void onBeforeSave(final BeforeSaveEvent event) {
         Prescription prescription = getEditedEntity();
         if (prescription.getId() == null) {
-            prescription.setId(UUID.randomUUID()); // ✅ Chỉ tạo ID nếu nó chưa có
+            prescription.setId(UUID.randomUUID());
         }
     }
 

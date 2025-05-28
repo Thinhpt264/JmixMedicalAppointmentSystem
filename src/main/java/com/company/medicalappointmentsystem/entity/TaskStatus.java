@@ -9,7 +9,8 @@ public enum TaskStatus implements EnumClass<String> {
 
     UPCOMING("UPCOMING"),
     IN_PROGRESS("IN_PROGRESS"),
-    DONE("DONE");
+    DONE("DONE"),
+    CANCEL("CANCEL");
 
     private final String id;
 

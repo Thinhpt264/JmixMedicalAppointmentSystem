@@ -53,7 +53,7 @@ public class VnPayController {
         vnp_Params.put("vnp_Amount", String.valueOf(amount));
         vnp_Params.put("vnp_CurrCode", "VND");
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
-        vnp_Params.put("vnp_OrderInfo", "Thanh toan don thuoc: " + prescription.getPrescriptionNumber());
+        vnp_Params.put("vnp_OrderInfo", "Thanh toan don thuoc: " + prescription.getId());
         vnp_Params.put("vnp_OrderType", "other");
         vnp_Params.put("vnp_Locale", "vn");
         vnp_Params.put("vnp_ReturnUrl", vnPayConfig.vnp_ReturnUrl);
